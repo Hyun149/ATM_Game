@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
     public GameState CurrentState { get; private set; } = GameState.None; // 현재 게임의 상태를 나타냅니다.
 
     [Header("유저 정보")]
-    public UserData userData = new UserData("조현성", 10000000, 20000000);
+    public UserData userData = new UserData("조현성", "Hyun99", "9999", 10000000, 20000000);
 
     private string savePath;
 
@@ -87,7 +87,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            userData = new UserData("조현성", 10000000, 20000000);
+            userData = new UserData("조현성", "Hyun99", "9999",10000000, 20000000);
             Debug.Log("[GameManager] 저장된 데이터 없음, 기본값 사용");
         }
     }
