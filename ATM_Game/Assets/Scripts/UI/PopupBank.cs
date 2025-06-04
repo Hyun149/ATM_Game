@@ -10,13 +10,27 @@ public class PopupBank : MonoBehaviour
     [Header("Cash")]
     [SerializeField] private TextMeshProUGUI cashText;
 
+    private int lastCash;
+    private int lastBalance;
 
     private void Start()
     {
-        UpdateUI();
+        Refresh();
     }
 
-    private void UpdateUI()
+    private void Update()
+    {
+        var data = GameManager.Instance.userData;
+
+        if (data.cash != lastCash || data.balance != lastBalance)
+        {
+            Refresh();
+            lastCash = data.cash;
+            lastBalance = data.balance;
+        }
+    }
+
+    private void Refresh()
     {
         var userData = GameManager.Instance.userData;
 
