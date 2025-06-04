@@ -10,11 +10,10 @@ using UnityEngine;
 /// </summary>
 public class GameManager : Singleton<GameManager>
 {
-    /// <summary>
-    /// 현재 게임의 상태를 나타냅니다.<br/>
-    /// 초기 상태는 None으로 설정되며, 이후 Title → InGame 등으로 전환됩니다.
-    /// </summary>
-    public GameState CurrentState { get; private set; } = GameState.None;
+    public GameState CurrentState { get; private set; } = GameState.None; // 현재 게임의 상태를 나타냅니다.
+
+    [Header("유저 정보")]
+    public UserData userData = new UserData("조현성", 0, 0);
 
     /// <summary>
     /// 게임 시작 시 호출되는 Unity 이벤트 함수입니다.<br/>
