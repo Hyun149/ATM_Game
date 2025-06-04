@@ -1,4 +1,5 @@
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -11,10 +12,14 @@ public class GameManager : Singleton<GameManager>
 {
     public GameState CurrentState { get; private set; } = GameState.None; // 현재 게임의 상태를 나타냅니다.
 
-    [Header("유저 정보")]
-    public UserData userData = new UserData("조현성", "Hyun99", "9999", 10000000, 20000000);
+    public UserDataManager UserDataManager { get; private set; }
 
-    private string savePath;
+    protected override void Awake()
+    {
+        base.Awake();
+        UserDataManager = new UserDataManager();
+        UserDataManager.LoadUserData();
+    }
 
     /// <summary>
     /// 게임 시작 시 호출되는 Unity 이벤트 함수입니다.<br/>
@@ -24,16 +29,6 @@ public class GameManager : Singleton<GameManager>
     {
         ChangeState(GameState.Title);
     }
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        savePath = System.IO.Path.Combine(Application.persistentDataPath, "saveData.json");
-
-        LoadUserData();
-    }
-
 
     /// <summary>
     /// 게임 상태를 새 상태로 전환합니다.<br/>
@@ -47,50 +42,10 @@ public class GameManager : Singleton<GameManager>
         CurrentState = newState;
         Debug.Log($"[GameManager] 상태 전환됨 -> {newState}");
 
-        switch (newState)
-        {
-            case GameState.Title:
-                // 타이틀 상태 초기화 처리 (예: 타이틀 UI 활성화, 배경음악 재생 등)
-                break;
-            case GameState.InGame:
-                // 인게임 로직 시작 처리
-                break;
-            /* case GameState.Pause:
-                // 일시정지 처리: 게임 시간 정지
-                Time.timeScale = 0f;
-                break;
-
-            case GameState.Resume:
-                // 일시정지 해제: 게임 시간 재개
-                Time.timeScale = 1f;
-                break;
-
-            case GameState.Clear:
-                // 게임 클리어 처리 (예: 클리어 연출, 결과창 표시 등)
-                break; */
-        }
+        GameStateHandler.Handle(newState);
+        
     }
 
-    public void SaveUserData()
-    {
-        string json = JsonUtility.ToJson(userData);
-        System.IO.File.WriteAllText(savePath, json);
-    }
-
-    public void LoadUserData()
-    {
-        if (System.IO.File.Exists(savePath))
-        {
-            string json = System.IO.File.ReadAllText(savePath);
-            userData = JsonUtility.FromJson<UserData>(json);
-            Debug.Log("[GameManager] LoadUserData 완료");
-        }
-        else
-        {
-            userData = new UserData("조현성", "Hyun99", "9999",10000000, 20000000);
-            Debug.Log("[GameManager] 저장된 데이터 없음, 기본값 사용");
-        }
-    }
 
     public void QuitGame()
     {

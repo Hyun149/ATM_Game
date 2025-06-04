@@ -26,7 +26,7 @@ public class PopupBank : MonoBehaviour
 
     private void Update()
     {
-        var data = GameManager.Instance.userData;
+        var data = GameManager.Instance.UserDataManager.Data;
 
         if (data.cash != lastCash || data.balance != lastBalance)
         {
@@ -38,7 +38,7 @@ public class PopupBank : MonoBehaviour
 
     private void Refresh()
     {
-        var userData = GameManager.Instance.userData;
+        var userData = GameManager.Instance.UserDataManager.Data;
 
         balanceText.text = string.Format("{0:N0}", userData.balance);
         cashText.text = string.Format("{0:N0}", userData.cash);
@@ -50,7 +50,7 @@ public class PopupBank : MonoBehaviour
     /// <param name="amount"></param>
     public void Deposit(int amount)
     {
-        var data = GameManager.Instance.userData;
+        var data = GameManager.Instance.UserDataManager.Data;
 
         if (amount > 0 && amount <= data.cash)
         {
@@ -58,7 +58,7 @@ public class PopupBank : MonoBehaviour
             data.cash -= amount;
             Refresh();
 
-            GameManager.Instance.SaveUserData();
+            GameManager.Instance.UserDataManager.SaveUserData();
         }
         else
         {
@@ -68,7 +68,7 @@ public class PopupBank : MonoBehaviour
 
     public void DepositFromInput()
     {
-        var data = GameManager.Instance.userData;
+        var data = GameManager.Instance.UserDataManager.Data;
 
         if (int.TryParse(inputField.text, out int inputAmount))
         {
@@ -78,7 +78,7 @@ public class PopupBank : MonoBehaviour
                 data.cash -= inputAmount;
                 Refresh();
 
-                GameManager.Instance.SaveUserData();
+                GameManager.Instance.UserDataManager.SaveUserData();
             }
             else
             {
@@ -97,7 +97,7 @@ public class PopupBank : MonoBehaviour
     /// <param name="amount"> 출금할 금액</param>
     public void Withdraw(int amount)
     {
-        var data = GameManager.Instance.userData;
+        var data = GameManager.Instance.UserDataManager.Data;
 
         if (amount > 0 && amount <= data.balance)
         {
@@ -105,7 +105,7 @@ public class PopupBank : MonoBehaviour
             data.cash += amount;
             Refresh();
 
-            GameManager.Instance.SaveUserData();
+            GameManager.Instance.UserDataManager.SaveUserData();
         }
         else
         {
@@ -115,7 +115,7 @@ public class PopupBank : MonoBehaviour
 
     public void WithdrawFromInput()
     {
-        var data = GameManager.Instance.userData;
+        var data = GameManager.Instance.UserDataManager.Data;
 
         if (int.TryParse(inputField.text, out int inputAmount))
         {
@@ -125,7 +125,7 @@ public class PopupBank : MonoBehaviour
                 data.cash += inputAmount;
                 Refresh();
 
-                GameManager.Instance.SaveUserData();
+                GameManager.Instance.UserDataManager.SaveUserData();
             }
             else
             {

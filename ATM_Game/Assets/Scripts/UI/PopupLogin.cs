@@ -21,7 +21,7 @@ public class PopupLogin : MonoBehaviour
         string enteredID = inputID.text;
         string enteredPW = inputPW.text;
 
-        var user = GameManager.Instance.userData;
+        var user = GameManager.Instance.UserDataManager.Data;
 
         if (enteredID.Trim() == user.userID && enteredPW.Trim() == user.password)
         {
