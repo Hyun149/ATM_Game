@@ -26,7 +26,7 @@ public class PopupBank : MonoBehaviour
 
     private void Update()
     {
-        var data = GameManager.Instance.UserDataManager.Data;
+        var data = GetUserData();
 
         if (data.cash != lastCash || data.balance != lastBalance)
         {
@@ -38,111 +38,51 @@ public class PopupBank : MonoBehaviour
 
     private void Refresh()
     {
-        var userData = GameManager.Instance.UserDataManager.Data;
-
-        balanceText.text = string.Format("{0:N0}", userData.balance);
-        cashText.text = string.Format("{0:N0}", userData.cash);
+        var data = GetUserData();
+        balanceText.text = $"{data.balance:N0}";
+        cashText.text = $"{data.cash:N0}";
     }
 
-    /// <summary>
-    /// 정해진 금액을 입금하는 버튼용 함수 (10,000 / 30,000 등)
-    /// </summary>
-    /// <param name="amount"></param>
-    public void Deposit(int amount)
-    {
-        var data = GameManager.Instance.UserDataManager.Data;
+    private UserData GetUserData() => GameManager.Instance.UserDataManager.Data;
 
-        if (amount > 0 && amount <= data.cash)
+    private void ShowError() => popupError?.SetActive(true);
+    private void HideError() => popupError?.SetActive(false);
+    private void CloseError() => HideError();
+
+    public void Deposit(int amount) => ProcessTransation(amount, isDeposit: true);
+    public void Withdraw(int amount) => ProcessTransation(amount, isDeposit: false);
+
+    public void DepositFromInput() => HandleInput(isDeposit: true);
+    public void WithdrawFromInput() => HandleInput(isDeposit: false);
+
+    private void HandleInput(bool isDeposit)
+    {
+        if (int.TryParse(inputField.text, out int amount))
         {
-            data.balance += amount;
-            data.cash -= amount;
+            ProcessTransation(amount, isDeposit);
+        }
+        else
+        {
+            ShowError();
+        }
+    }
+
+    private void ProcessTransation(int amount, bool isDeposit)
+    {
+        bool success = isDeposit
+            ? GameManager.Instance.UserDataManager.TryDeposit(amount)
+            : GameManager.Instance.UserDataManager.TryWithdraw(amount);
+
+        if (success)
+        {
             Refresh();
-
-            GameManager.Instance.UserDataManager.SaveUserData();
         }
         else
         {
-            popupError.SetActive(true);
+            ShowError();
         }
     }
 
-    public void DepositFromInput()
-    {
-        var data = GameManager.Instance.UserDataManager.Data;
 
-        if (int.TryParse(inputField.text, out int inputAmount))
-        {
-            if (inputAmount > 0 && inputAmount <= data.cash)
-            {
-                data.balance += inputAmount;
-                data.cash -= inputAmount;
-                Refresh();
 
-                GameManager.Instance.UserDataManager.SaveUserData();
-            }
-            else
-            {
-                popupError.SetActive(true);
-            }
-        }
-        else
-        {
-            popupError.SetActive(true);
-        }
-    }
-
-    /// <summary>
-    /// 정해진 금액을 출금하는 함수
-    /// </summary>
-    /// <param name="amount"> 출금할 금액</param>
-    public void Withdraw(int amount)
-    {
-        var data = GameManager.Instance.UserDataManager.Data;
-
-        if (amount > 0 && amount <= data.balance)
-        {
-            data.balance -= amount;
-            data.cash += amount;
-            Refresh();
-
-            GameManager.Instance.UserDataManager.SaveUserData();
-        }
-        else
-        {
-            popupError.SetActive(true);
-        }
-    }
-
-    public void WithdrawFromInput()
-    {
-        var data = GameManager.Instance.UserDataManager.Data;
-
-        if (int.TryParse(inputField.text, out int inputAmount))
-        {
-            if (inputAmount > 0 && inputAmount <= data.balance)
-            {
-                data.balance -= inputAmount;
-                data.cash += inputAmount;
-                Refresh();
-
-                GameManager.Instance.UserDataManager.SaveUserData();
-            }
-            else
-            {
-                popupError.SetActive(true);
-            }
-        }
-        else
-        {
-            popupError.SetActive(true);
-        }
-    }
-
-    /// <summary>
-    /// 오류 팝업을 닫는다.
-    /// </summary>
-    public void CloseError()
-    {
-        popupError?.SetActive(false);
-    }
 }

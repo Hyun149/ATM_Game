@@ -28,4 +28,39 @@ public class UserDataManager
             Debug.Log("저장 파일 없음!, 기본값 사용");
         }
     }
+
+    /// <summary>
+    /// 입금 처리: 현금 -> 잔액
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public bool TryDeposit(int amount)
+    {
+        if (amount > 0 && amount <= Data.cash)
+        {
+            Data.cash -= amount;
+            Data.balance += amount;
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// 출금 처리: 잔액 -> 현금
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public bool TryWithdraw(int amount)
+    {
+        if (amount > 0 && amount <= Data.balance)
+        {
+            Data.balance -= amount;
+            Data.cash += amount;
+            SaveUserData();
+            return true;
+        }
+
+        return false;
+    }
 }
