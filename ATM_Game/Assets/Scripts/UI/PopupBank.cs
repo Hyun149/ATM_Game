@@ -28,6 +28,11 @@ public class PopupBank : MonoBehaviour
     {
         var data = GetUserData();
 
+        if (data == null)
+        {
+            Debug.LogWarning("유저 데이터가 아직 초기화되지 않았습니다.");
+        }
+
         if (data.cash != lastCash || data.balance != lastBalance)
         {
             Refresh();
