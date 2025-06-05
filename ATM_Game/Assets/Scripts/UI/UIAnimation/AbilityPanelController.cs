@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class AbilityPanelController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject statusUI;
+    [SerializeField] private float animDuration = 0.3f;
+
+    private bool isOpen = false;
+
+    private void Start()
     {
-        
+        statusUI.transform.localScale = Vector3.zero;
+        statusUI.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ToggleStatusUI()
     {
-        
+        if (isOpen)
+        {
+            statusUI.transform.DOScale(Vector3.zero, animDuration).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                statusUI.SetActive(false);
+                isOpen = false;
+            });
+        }
+        else
+        {
+            statusUI.SetActive(true);
+            statusUI.transform.localScale = Vector3.zero;
+
+            statusUI.transform.DOScale(Vector3.one, animDuration).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                isOpen = true;
+            });
+        }
     }
 }

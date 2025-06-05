@@ -10,7 +10,6 @@ public class UIButtonManager : MonoBehaviour
     [SerializeField] private GameObject loginUI;
     [SerializeField] private GameObject registerUI;
     [SerializeField] private GameObject transferUI;
-    [SerializeField] private GameObject rpgMainUI;
 
     public void ShowATM()
     {
@@ -18,7 +17,6 @@ public class UIButtonManager : MonoBehaviour
         depositUI.SetActive(false);
         withdrawUI.SetActive(false);
         transferUI.SetActive(false);
-        rpgMainUI.SetActive(false);
     }
 
     public void ShowDepositUI()
@@ -34,7 +32,6 @@ public class UIButtonManager : MonoBehaviour
         withdrawUI.SetActive(true);
         atmUI.SetActive(false);
         depositUI.SetActive(false);
-        transferUI.SetActive(false);
     }
 
     public void ShowLoginUI()
@@ -57,9 +54,4 @@ public class UIButtonManager : MonoBehaviour
         withdrawUI.SetActive(false);
     }
 
-    public void ShowRPGMainUI()
-    {
-        rpgMainUI.SetActive(true);
-        atmUI.SetActive(false);
-    }
 }
