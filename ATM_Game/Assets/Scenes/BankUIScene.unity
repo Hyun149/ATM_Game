@@ -5961,6 +5961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a081d0a0dcd7c144aac81e026b7e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameText: {fileID: 1424567057}
   balanceText: {fileID: 676608422}
   cashText: {fileID: 654071250}
   inputField: {fileID: 1266696530}
@@ -7521,6 +7522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a081d0a0dcd7c144aac81e026b7e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameText: {fileID: 1716154398}
   balanceText: {fileID: 103143353}
   cashText: {fileID: 1360174491}
   inputField: {fileID: 362313242}
@@ -7814,6 +7816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a081d0a0dcd7c144aac81e026b7e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameText: {fileID: 901255225}
   balanceText: {fileID: 1623500253}
   cashText: {fileID: 1811477943}
   inputField: {fileID: 362313242}
@@ -8088,7 +8091,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC870\uD604\uC131"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36ec41ce7a694144dad2f7194df0967d, type: 2}
   m_sharedMaterial: {fileID: 4686316955425855734, guid: 36ec41ce7a694144dad2f7194df0967d,
@@ -11349,7 +11352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC870\uD604\uC131"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36ec41ce7a694144dad2f7194df0967d, type: 2}
   m_sharedMaterial: {fileID: 4686316955425855734, guid: 36ec41ce7a694144dad2f7194df0967d,
@@ -13976,7 +13979,7 @@ GameObject:
   - component: {fileID: 1424567058}
   - component: {fileID: 1424567057}
   m_Layer: 5
-  m_Name: UserName
+  m_Name: UserName_Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14021,7 +14024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC870\uD604\uC131"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36ec41ce7a694144dad2f7194df0967d, type: 2}
   m_sharedMaterial: {fileID: 4686316955425855734, guid: 36ec41ce7a694144dad2f7194df0967d,
@@ -16078,7 +16081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1687416799
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16114,6 +16117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a081d0a0dcd7c144aac81e026b7e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameText: {fileID: 1159193236}
   balanceText: {fileID: 1838499748}
   cashText: {fileID: 1812679661}
   inputField: {fileID: 1266696530}
@@ -16130,7 +16134,7 @@ GameObject:
   - component: {fileID: 1716154399}
   - component: {fileID: 1716154398}
   m_Layer: 5
-  m_Name: UserName
+  m_Name: UserName_Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16175,7 +16179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC870\uD604\uC131"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36ec41ce7a694144dad2f7194df0967d, type: 2}
   m_sharedMaterial: {fileID: 4686316955425855734, guid: 36ec41ce7a694144dad2f7194df0967d,

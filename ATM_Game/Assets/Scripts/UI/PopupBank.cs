@@ -4,6 +4,9 @@ using TMPro;
 
 public class PopupBank : MonoBehaviour
 {
+    [Header("유저 이름 텍스트")]
+    [SerializeField] private TextMeshProUGUI userNameText;
+
     [Header("잔액")]
     [SerializeField] private TextMeshProUGUI balanceText;
 
@@ -46,6 +49,11 @@ public class PopupBank : MonoBehaviour
         var data = GetUserData();
         balanceText.text = $"{data.balance:N0}";
         cashText.text = $"{data.cash:N0}";
+
+        if (userNameText != null)
+        {
+            userNameText.text = data.userName;
+        }
     }
 
     private UserData GetUserData() => GameManager.Instance.UserDataManager.CurrentUser;
