@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
+    [Header("Canvas")]
     [SerializeField] private GameObject rpgMainMenuCanvas;
     [SerializeField] private GameObject bankUICanvas;
-
-    [Header("RPG 서브 UI")]
     [SerializeField] private GameObject statusCanvas;
     [SerializeField] private GameObject inventoryCanvas;
+
+    public UIMainMenu MainMenuUI { get; private set; }
+
 
     public void ShowRPGMainMenuCanvas()
     {
