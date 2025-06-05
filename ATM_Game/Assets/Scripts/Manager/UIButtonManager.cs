@@ -7,6 +7,8 @@ public class UIButtonManager : MonoBehaviour
     [SerializeField] private GameObject atmUI;
     [SerializeField] private GameObject depositUI;
     [SerializeField] private GameObject withdrawUI;
+    [SerializeField] private GameObject loginUI;
+    [SerializeField] private GameObject registerUI;
 
     public void ShowATM()
     {
@@ -27,5 +29,17 @@ public class UIButtonManager : MonoBehaviour
         atmUI.SetActive(false);
         depositUI.SetActive(false);
         withdrawUI.SetActive(true);
+    }
+
+    public void OnClickLoginUI()
+    {
+        registerUI.SetActive(false);
+        loginUI.SetActive(true);
+    }
+
+    public void OnClickRegisterUI()
+    {
+        registerUI.SetActive(true);
+        loginUI.SetActive(false);
     }
 }

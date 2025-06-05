@@ -43,7 +43,7 @@ public class PopupBank : MonoBehaviour
         cashText.text = $"{data.cash:N0}";
     }
 
-    private UserData GetUserData() => GameManager.Instance.UserDataManager.Data;
+    private UserData GetUserData() => GameManager.Instance.UserDataManager.CurrentUser;
 
     private void ShowError() => popupError?.SetActive(true);
     private void HideError() => popupError?.SetActive(false);
@@ -82,7 +82,4 @@ public class PopupBank : MonoBehaviour
             ShowError();
         }
     }
-
-
-
 }

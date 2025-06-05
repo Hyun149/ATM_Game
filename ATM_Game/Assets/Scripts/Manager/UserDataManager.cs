@@ -1,16 +1,30 @@
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class UserDataManager
 {
     private const string FileName = "saveData.json";
-    public UserData Data {  get; private set; }
-
     private string SavePath => Path.Combine(Application.persistentDataPath, FileName);
+
+    public UserDataList UserList { get; private set; } = new UserDataList();
+    public UserData CurrentUser { get; private set; }
+
+    public bool IsDuplicateID(string id)
+    {
+        LoadUserData();
+        return UserList.users.Any(u => u.userID == id);
+    }
+
+    public void AddnewUser(UserData newUser)
+    {
+        UserList.users.Add(newUser);
+        SaveUserData();
+    }
 
     public void SaveUserData()
     {
-        string Json = JsonUtility.ToJson(Data);
+        string Json = JsonUtility.ToJson(UserList, true);
         File.WriteAllText(SavePath, Json);
     }
 
@@ -19,12 +33,12 @@ public class UserDataManager
         if (File.Exists(SavePath))
         {
             string json = File.ReadAllText(SavePath);
-            Data = JsonUtility.FromJson<UserData>(json);
+            UserList = JsonUtility.FromJson<UserDataList>(json);
             Debug.Log("유저 데이터 로드 완료");
         }
         else
         {
-            Data = new UserData("조현성", "Hyun99", "9999", 10000000, 20000000);
+            UserList = new UserDataList();
             Debug.Log("저장 파일 없음!, 기본값 사용");
         }
     }
@@ -36,10 +50,10 @@ public class UserDataManager
     /// <returns></returns>
     public bool TryDeposit(int amount)
     {
-        if (amount > 0 && amount <= Data.cash)
+        if (amount > 0 && amount <= CurrentUser.cash)
         {
-            Data.cash -= amount;
-            Data.balance += amount;
+            CurrentUser.cash -= amount;
+            CurrentUser.balance += amount;
             return true;
         }
 
@@ -53,12 +67,33 @@ public class UserDataManager
     /// <returns></returns>
     public bool TryWithdraw(int amount)
     {
-        if (amount > 0 && amount <= Data.balance)
+        if (amount > 0 && amount <= CurrentUser.balance)
         {
-            Data.balance -= amount;
-            Data.cash += amount;
+            CurrentUser.balance -= amount;
+            CurrentUser.cash += amount;
             SaveUserData();
             return true;
+        }
+
+        return false;
+    }
+
+    public void SetUserData(UserData data)
+    {
+        this.CurrentUser = data;
+    }
+
+    public bool TryLogin(string id, string pw)
+    {
+        LoadUserData();
+
+        foreach (var user in UserList.users)
+        {
+            if (user.userID == id && user.password == pw)
+            {
+                CurrentUser = user;
+                return true;
+            }
         }
 
         return false;

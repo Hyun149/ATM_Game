@@ -21,9 +21,9 @@ public class PopupLogin : MonoBehaviour
         string enteredID = inputID.text;
         string enteredPW = inputPW.text;
 
-        var user = GameManager.Instance.UserDataManager.Data;
+        var manager = GameManager.Instance.UserDataManager;
 
-        if (enteredID.Trim() == user.userID && enteredPW.Trim() == user.password)
+        if (manager.TryLogin(enteredID, enteredPW))
         {
             Debug.Log("로그인 성공!");
             popupBank.SetActive(true);
