@@ -14,11 +14,18 @@ public class GameManager : Singleton<GameManager>
 
     public UserDataManager UserDataManager { get; private set; }
 
+    public Character PlayerCharacter { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
         UserDataManager = new UserDataManager();
         UserDataManager.LoadUserData();
+
+        if (UserDataManager.CurrentUser != null)
+        {
+            PlayerCharacter = new Character(UserDataManager.CurrentUser);
+        }
     }
 
     /// <summary>
