@@ -35,6 +35,19 @@ public class UserDataManager
             string json = File.ReadAllText(SavePath);
             UserList = JsonUtility.FromJson<UserDataList>(json);
             Debug.Log("유저 데이터 로드 완료");
+
+            if (UserList.users.Count > 0)
+            {
+
+                AddTestUser(); // 테스트 계정
+
+                // 테스트용 임시 주석: CurrentUser ??= UserList.users[0];
+            }
+            else
+            {
+                // 완전 빈 리스트인 경우 테스트 유저 추가
+                AddTestUser();
+            }
         }
         else
         {
@@ -97,5 +110,14 @@ public class UserDataManager
         }
 
         return false;
+    }
+
+    private void AddTestUser()
+    {
+        var testUser = new UserData("GM 현", "0000", "0000", 9999999, 11111111);
+        UserList = new UserDataList();
+        UserList.users.Add(testUser);
+        CurrentUser = testUser;
+        SaveUserData();
     }
 }
