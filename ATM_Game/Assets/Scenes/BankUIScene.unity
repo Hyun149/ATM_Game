@@ -4467,9 +4467,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AbilityPanelController, Assembly-CSharp
-        m_MethodName: ToggleStatusUI
+      - m_Target: {fileID: 366662652}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ShowStatusCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4563,6 +4563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rpgMainMenuCanvas: {fileID: 1879793914}
   bankUICanvas: {fileID: 975255087}
+  statusCanvas: {fileID: 624370921}
+  inventoryCanvas: {fileID: 906638938}
 --- !u!1 &377308438
 GameObject:
   m_ObjectHideFlags: 0
@@ -6804,8 +6806,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 380.0301, y: -0.00018310547}
-  m_SizeDelta: {x: -760.06, y: -0}
+  m_AnchoredPosition: {x: 372.299, y: -0.00018310547}
+  m_SizeDelta: {x: -744.599, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586522996
 MonoBehaviour:
@@ -7888,8 +7890,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -757, y: -62.999992}
-  m_SizeDelta: {x: 291.821, y: 143.243}
+  m_AnchoredPosition: {x: -676, y: -183}
+  m_SizeDelta: {x: 515.73, y: 143.243}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &682119710
 MonoBehaviour:
@@ -10032,7 +10034,6 @@ RectTransform:
   m_Children:
   - {fileID: 586522995}
   - {fileID: 1221640309}
-  - {fileID: 1608826416}
   - {fileID: 1178556506}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10865,9 +10866,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AbilityPanelController, Assembly-CSharp
-        m_MethodName: ToggleStatusUI
+      - m_Target: {fileID: 366662652}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HideStatusCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14957,7 +14958,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1608826416}
   m_Father: {fileID: 906638942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -16341,7 +16343,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 366662652}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ShowInventoryCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18491,10 +18493,10 @@ RectTransform:
   m_GameObject: {fileID: 1608826415}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000304, y: 1.0000304, z: 1.0000304}
+  m_LocalScale: {x: 1.0000303, y: 1.0000303, z: 1.0000303}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 906638942}
+  m_Father: {fileID: 1221640309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18545,9 +18547,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AbilityPanelController, Assembly-CSharp
-        m_MethodName: ToggleStatusUI
+      - m_Target: {fileID: 366662652}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HideInventoryCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21720,7 +21722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -253, y: -172}
+  m_AnchoredPosition: {x: -37, y: -172}
   m_SizeDelta: {x: 669.109, y: 923.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1874865509

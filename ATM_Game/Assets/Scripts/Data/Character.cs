@@ -15,7 +15,7 @@ public class Character
     public Character(UserData user)
     {
         this.characterName = user.userName;
-        this.level = 1; // 레벨은 아직 X
-        this.gold = user.balance / 10;
+        this.level = Mathf.Max(1, user.balance / 37145); //최소 1레벨 보장
+        this.gold = user.balance / 34;
     }
 }
