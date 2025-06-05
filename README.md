@@ -8,6 +8,8 @@ UI 전환과 데이터 연동 구조 학습에 적합합니다.
 
 ## 🎮 데모 이미지
 ![image](https://github.com/user-attachments/assets/18411044-3e98-4e02-ab07-81ac9df1df56)
+![image](https://github.com/user-attachments/assets/c9bec3cf-798e-4cd7-ba90-75c591eed4b2)
+
 
 ---
 
