@@ -11,11 +11,26 @@ public class Character
     public string characterName;
     public int level;
     public int gold;
+    public int attack;
+    public int defense;
+    public int health;
 
     public Character(UserData user)
     {
         this.characterName = user.userName;
         this.level = Mathf.Max(1, user.balance / 37145); //최소 1레벨 보장
         this.gold = user.balance / 34;
+
+        CalculateStats();
+    }
+
+    /// <summary>
+    /// 레벨을 기반으로 스탯을 계산합니다.
+    /// </summary>
+    private void CalculateStats()
+    {
+        this.attack = level * 3;
+        this.defense = level * 3;
+        this.health = level * 11;
     }
 }
