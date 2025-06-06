@@ -14,37 +14,37 @@ public class UserDataManager : IUserDataManager
 {
     public event Action OnUserDataChanged;
 
-    /// <summary> 모든 유저 리스트를 담고 있는 데이터 객체입니다. </summary>
-    public UserDataList UserList { get; private set; } = new UserDataList();
+    private readonly IUserDataStorage storage;
+    private readonly CharacterFactory characterFactory;
 
-    /// <summary> 전체 유저 목록을 리스트 형태로 반환합니다. </summary>
+    public UserDataList UserList { get; private set; }
     public List<UserData> AllUsers => UserList.users;
-
-    /// <summary> 현재 로그인된 유저 데이터입니다. </summary>
     public UserData CurrentUser { get; private set; }
 
-    private const string FileName = "saveData.json";
-
-    /// <summary> 실제 저장되는 경로입니다. </summary>
-    private string SavePath => Path.Combine(Application.persistentDataPath, FileName);
+    public UserDataManager(IUserDataStorage storage, CharacterFactory factory)
+    {
+        this.storage = storage;
+        this.characterFactory = factory;
+    }
 
     /// <summary>
     /// UserDataManager를 초기화하며, 저장된 데이터를 불러옵니다.
     /// </summary>
     public void Init()
     {
-        LoadUserData();
+        UserList = storage.Load();
+
+        if (UserList.users.Count == 0)
+        {
+            AddTestUser();
+        }
+        else
+        {
+            CurrentUser ??= UserList.users[0];
+        }
     }
 
-    /// <summary>
-    /// 중복된 ID가 존재하는지 확인합니다.
-    /// </summary>
-    /// <param name="id">검사할 ID 문자열</param>
-    /// <returns>중복이면 true, 아니면 false</returns>
-    public bool IsDuplicateID(string id)
-    {
-        return UserList.users.Any(u => u.userID == id);
-    }
+    public bool IsDuplicateID(string id) => UserList.users.Any(u => u.userID == id);
 
     /// <summary>
     /// 신규 유저를 추가합니다.<br/>
@@ -53,68 +53,14 @@ public class UserDataManager : IUserDataManager
     /// <param name="newUser">신규 유저 데이터</param>
     public void AddNewUser(UserData newUser)
     {
+        var character = characterFactory.CreateCharacter(newUser);
+        newUser.SaveFromCharacter(character);
+
         UserList.users.Add(newUser);
         CurrentUser = newUser;
 
-        // 캐릭터 생성 후 시작 아이템 지급
-        var character = new Character(newUser);
-        foreach (var item in GameManager.Instance.initialItems)
-        {
-            character.AddItem(item);
-        }
-
-        // 인벤토리 저장 후 파일 저장
-        newUser.SaveFromCharacter(character);
-        SaveUserData();
-    }
-
-    /// <summary>
-    /// 유저 데이터를 JSON 파일로 저장합니다.
-    /// </summary>
-    public void SaveUserData()
-    {
-        string json = JsonUtility.ToJson(UserList, true);
-        File.WriteAllText(SavePath, json);
-    }
-
-    /// <summary>
-    /// 저장된 JSON 파일에서 유저 데이터를 불러옵니다.<br/>
-    /// - 없으면 기본값 또는 테스트 유저를 생성합니다.
-    /// </summary>
-    public void LoadUserData()
-    {
-        if (File.Exists(SavePath))
-        {
-            try
-            {
-            string json = File.ReadAllText(SavePath);
-            UserList = JsonUtility.FromJson<UserDataList>(json);
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError($"유저 데이터 로드 실패: {ex.Message}");
-            }
-
-            Debug.Log("유저 데이터 로드 완료");
-
-            if (UserList.users.Count > 0)
-            {
-
-                // AddTestUser(); // 테스트 계정
-
-                CurrentUser ??= UserList.users[0];
-            }
-            else
-            {
-                // 완전 빈 리스트인 경우 테스트 유저 추가
-                AddTestUser();
-            }
-        }
-        else
-        {
-            UserList = new UserDataList();
-            Debug.Log("저장 파일 없음!, 기본값 사용");
-        }
+        storage.Save(UserList);
+        OnUserDataChanged?.Invoke();
     }
 
     /// <summary>
@@ -122,18 +68,36 @@ public class UserDataManager : IUserDataManager
     /// </summary>
     /// <param name="amount">입금할 금액</param>
     /// <returns>입금 성공 여부</returns>
-    public bool TryDeposit(int amount)
+    /// <summary>
+    /// 로그인 시도: ID와 비밀번호가 일치하는 유저를 찾습니다.
+    /// </summary>
+    /// <param name="id">입력한 ID</param>
+    /// <param name="pw">입력한 비밀번호</param>
+    /// <returns>로그인 성공 여부</returns>
+    public bool TryLogin(string id, string pw)
     {
-        if (amount > 0 && amount <= CurrentUser.cash)
+        var user = UserList.users.FirstOrDefault(u => u.userID == id && u.password == pw);
+        if (user == null)
         {
-            CurrentUser.cash -= amount;
-            CurrentUser.balance += amount;
-            SaveUserData();
-            OnUserDataChanged?.Invoke();
-            return true;
+            return false;
         }
 
-        return false;
+        CurrentUser = user;
+        return true;
+    }
+
+    public bool TryDeposit(int amount)
+    {
+        if (CurrentUser == null || amount <= 0 || amount > CurrentUser.cash)
+        {
+            return false;
+        }
+
+        CurrentUser.cash -= amount;
+        CurrentUser.balance += amount;
+        storage.Save(UserList);
+        OnUserDataChanged?.Invoke();
+        return true;
     }
 
     /// <summary>
@@ -143,36 +107,21 @@ public class UserDataManager : IUserDataManager
     /// <returns>출금 성공 여부</returns>
     public bool TryWithdraw(int amount)
     {
-        if (amount > 0 && amount <= CurrentUser.balance)
+        if (CurrentUser == null || amount <= 0 || amount > CurrentUser.balance)
         {
-            CurrentUser.balance -= amount;
-            CurrentUser.cash += amount;
-            SaveUserData();
-            OnUserDataChanged?.Invoke();
-            return true;
+            return false;
         }
 
-        return false;
+        CurrentUser.balance -= amount;
+        CurrentUser.cash += amount;
+        storage.Save(UserList);
+        OnUserDataChanged?.Invoke();
+        return true;
     }
 
-    /// <summary>
-    /// 로그인 시도: ID와 비밀번호가 일치하는 유저를 찾습니다.
-    /// </summary>
-    /// <param name="id">입력한 ID</param>
-    /// <param name="pw">입력한 비밀번호</param>
-    /// <returns>로그인 성공 여부</returns>
-    public bool TryLogin(string id, string pw)
+    public void SaveUserData()
     {
-        foreach (var user in UserList.users)
-        {
-            if (user.userID == id && user.password == pw)
-            {
-                CurrentUser = user;
-                return true;
-            }
-        }
-
-        return false;
+        storage.Save(UserList);
     }
 
     /// <summary>
@@ -184,6 +133,6 @@ public class UserDataManager : IUserDataManager
         var testUser = new UserData("GM 현", "0000", "0000", 9999999, 11111111);
         UserList.users.Add(testUser);
         CurrentUser = testUser;
-        SaveUserData();
+        storage.Save(UserList);
     }
 }

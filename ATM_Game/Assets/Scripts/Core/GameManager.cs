@@ -38,7 +38,10 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
 
-        InjectUserDataManager(new UserDataManager());
+        var storage = new JsonUserDataStorage();
+        var factory = new CharacterFactory(initialItems);
+
+        InjectUserDataManager(new UserDataManager(storage, factory));
     }
 
     /// <summary>
