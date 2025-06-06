@@ -15,10 +15,10 @@ public class CharacterStats
     {
         baseLevel = level;
         this.inventory = inventory;
-        ReCalualate();
+        ReCalculate();
     }
 
-    public void ReCalualate()
+    public void ReCalculate()
     {
         Attack = baseLevel * 3;
         Defense = baseLevel * 2;

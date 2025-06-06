@@ -2,11 +2,14 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 public class UserDataManager : IUserDataManager
 {
     public event Action OnUserDataChanged;
     public UserDataList UserList { get; private set; } = new UserDataList();
+
+    public List<UserData> AllUsers => UserList.users;
     public UserData CurrentUser { get; private set; }
 
 

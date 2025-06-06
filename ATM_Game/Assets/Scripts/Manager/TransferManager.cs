@@ -27,7 +27,7 @@ public class TransferManager : MonoBehaviour
         }
 
         var sender = GameManager.Instance.UserDataManager.CurrentUser;
-        var allUsers = GameManager.Instance.UserDataManager.UserList.users;
+        var allUsers = GameManager.Instance.UserDataManager.AllUsers;
 
         if (sender.balance < amount)
         {
