@@ -24,23 +24,15 @@ public class PopupBank : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.UserDataManager.OnUserDataChanged += Refresh;
         Refresh();
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        var data = GetUserData();
-
-        if (data == null)
+        if (GameManager.Instance != null)
         {
-            Debug.LogWarning("유저 데이터가 아직 초기화되지 않았습니다.");
-        }
-
-        if (data.cash != lastCash || data.balance != lastBalance)
-        {
-            Refresh();
-            lastCash = data.cash;
-            lastBalance = data.balance;
+            GameManager.Instance.UserDataManager.OnUserDataChanged -= Refresh;
         }
     }
 

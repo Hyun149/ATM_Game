@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using System;
 
 public class UserDataManager
 {
+    public event Action OnUserDataChanged;
+
     private const string FileName = "saveData.json";
     private string SavePath => Path.Combine(Application.persistentDataPath, FileName);
 
@@ -81,6 +84,7 @@ public class UserDataManager
             CurrentUser.cash -= amount;
             CurrentUser.balance += amount;
             SaveUserData();
+            OnUserDataChanged?.Invoke();
             return true;
         }
 
@@ -99,6 +103,7 @@ public class UserDataManager
             CurrentUser.balance -= amount;
             CurrentUser.cash += amount;
             SaveUserData();
+            OnUserDataChanged?.Invoke();
             return true;
         }
 
