@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
 {
     public GameState CurrentState { get; private set; } = GameState.None; // 현재 게임의 상태를 나타냅니다.
 
-    public UserDataManager UserDataManager { get; private set; }
+    public IUserDataManager UserDataManager { get; private set; }
 
     public Character PlayerCharacter { get; private set; }
 
@@ -27,14 +27,8 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        UserDataManager = new UserDataManager();
 
-        UserDataManager.Init();
-
-        if (UserDataManager.CurrentUser != null)
-        {
-            SetPlayerCharacter(UserDataManager.CurrentUser);
-        }
+        InjectUserDataManager(new UserDataManager());
     }
 
     /// <summary>
@@ -63,20 +57,17 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// 플레이어 캐릭터를 설정합니다.<br/>
-    /// (SetData와 동일한 기능이므로, 추후 통합 가능)
+    /// 유저 데이터를 기반으로 플레이어 캐릭터를 생성하고 설정합니다.
     /// </summary>
-    /// <param name="user">유저 데이터</param>
     public void SetPlayerCharacter(UserData user)
     {
         PlayerCharacter = new Character(user);
     }
 
     /// <summary>
-    /// 플레이어 캐릭터를 설정합니다.<br/>
-    /// (SetData와 동일한 기능이므로, 추후 통합 가능)
+    /// 현재 플레이어 캐릭터 데이터를 유저 데이터에 반영하고 저장합니다.<br/>
+    /// 캐릭터 또는 유저 정보가 없을 경우 저장을 생략합니다.
     /// </summary>
-    /// <param name="user">유저 데이터</param>
     public void SaveGame()
     {
         if (PlayerCharacter == null || UserDataManager.CurrentUser == null)
@@ -87,6 +78,21 @@ public class GameManager : Singleton<GameManager>
         UserDataManager.CurrentUser.SaveFromCharacter(PlayerCharacter);
 
         UserDataManager.SaveUserData();
+    }
+
+    /// <summary>
+    /// 외부에서 UserDataManager를 주입받아 초기화하고, 플레이어 캐릭터를 설정합니다.<br/>
+    /// 테스트나 확장 구조에서 대체 구현체 주입이 가능합니다.
+    /// </summary>
+    public void InjectUserDataManager(IUserDataManager userDataManager)
+    {
+        UserDataManager = userDataManager;
+        UserDataManager.Init();
+
+        if (UserDataManager.CurrentUser != null)
+        {
+            SetPlayerCharacter(UserDataManager.CurrentUser);
+        }
     }
 
     /// <summary>

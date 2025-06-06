@@ -3,15 +3,15 @@ using System.IO;
 using System.Linq;
 using System;
 
-public class UserDataManager
+public class UserDataManager : IUserDataManager
 {
     public event Action OnUserDataChanged;
     public UserDataList UserList { get; private set; } = new UserDataList();
     public UserData CurrentUser { get; private set; }
 
+
     private const string FileName = "saveData.json";
     private string SavePath => Path.Combine(Application.persistentDataPath, FileName);
-
 
 
     public void Init()
