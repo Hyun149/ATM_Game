@@ -71,7 +71,7 @@
 
 ---
 
-## 📁 폴더 구조 (예시)
+## 📁 폴더 구조
 ![image](https://github.com/user-attachments/assets/9a18c0b9-ad5c-4be8-b08a-83a8f3bd821e)
 
 
