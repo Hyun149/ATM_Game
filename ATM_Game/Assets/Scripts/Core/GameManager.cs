@@ -60,16 +60,23 @@ public class GameManager : Singleton<GameManager>
     public void SetData(UserData user)
     {
         PlayerCharacter = new Character(user);
+    }
 
-        foreach (var itemData in initialItems)
+    public void SetPlayerCharacter(UserData user)
+    {
+        PlayerCharacter = new Character(user);
+    }
+
+    public void SaveGame()
+    {
+        if (PlayerCharacter == null || UserDataManager.CurrentUser == null)
         {
-            PlayerCharacter.AddItem(itemData);
+            return;
         }
 
-        /*if (PlayerCharacter.Inventory.Count > 0)
-        {
-            PlayerCharacter.Inventory[0].Equip();
-        }*/
+        UserDataManager.CurrentUser.SaveFromCharacter(PlayerCharacter);
+
+        UserDataManager.SaveUserData();
     }
 
     public void QuitGame()

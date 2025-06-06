@@ -6,12 +6,12 @@ using System;
 public class UserDataManager
 {
     public event Action OnUserDataChanged;
+    public UserDataList UserList { get; private set; } = new UserDataList();
+    public UserData CurrentUser { get; private set; }
 
     private const string FileName = "saveData.json";
     private string SavePath => Path.Combine(Application.persistentDataPath, FileName);
 
-    public UserDataList UserList { get; private set; } = new UserDataList();
-    public UserData CurrentUser { get; private set; }
 
 
     public void Init()
@@ -27,6 +27,15 @@ public class UserDataManager
     public void AddNewUser(UserData newUser)
     {
         UserList.users.Add(newUser);
+        CurrentUser = newUser;
+
+        var character = new Character(newUser);
+        foreach (var item in GameManager.Instance.initialItems)
+        {
+            character.AddItem(item);
+        }
+
+        newUser.SaveFromCharacter(character);
         SaveUserData();
     }
 

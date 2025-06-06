@@ -9,9 +9,11 @@ public class CharacterInventory
 
     public List<Item> Items => items;
 
-    public void AddItem(ItemData data)
+    public Item AddItem(ItemData data)
     {
-        items.Add(new Item(data));
+        var item = new Item(data);
+        items.Add(item);
+        return item;
     }
 
     public void Equip(Item item)

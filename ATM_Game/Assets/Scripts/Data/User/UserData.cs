@@ -11,6 +11,7 @@ public class UserData
     public int cash;
     public int balance;
     
+    public List<ItemSaveData> inventory = new List<ItemSaveData>();
 
     public UserData(string userName, string id, string pw,int cash, int balance)
     {
@@ -19,5 +20,15 @@ public class UserData
         this.balance = balance;
         this.userID = id;
         this.password = pw;
+    }
+
+    public void SaveFromCharacter(Character character)
+    {
+        this.inventory.Clear();
+        foreach (var item in character.Inventory.Items)
+        {
+            Debug.Log($"[저장]: {item.data.name} / 장착: {item.isEquipped}");
+            inventory.Add(new ItemSaveData(item.data.name, item.isEquipped));
+        }
     }
 }

@@ -18,10 +18,14 @@ public class UIInventory : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("UIInventory 활성화됨");
+
         var character = GameManager.Instance.PlayerCharacter;
 
         if (character != null)
         {
+            Debug.Log($"인벤토리 아이템 수: {character.Inventory.Items.Count}");
+
             goldText.text = $"{character.gold:N0}";
             RefreshInventoryUI(character.Inventory.Items);
         }

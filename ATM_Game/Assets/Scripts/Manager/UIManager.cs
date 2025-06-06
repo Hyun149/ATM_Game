@@ -16,12 +16,16 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowRPGMainMenuCanvas()
     {
+        var user = GameManager.Instance.UserDataManager.CurrentUser;
+        GameManager.Instance.SetPlayerCharacter(user);
+
         HideAll();
         rpgMainMenuCanvas.SetActive(true);
     }
 
     public void ShowBankCanvas()
     {
+        GameManager.Instance.SaveGame();
         HideAll();
         bankUICanvas.SetActive(true);
     }

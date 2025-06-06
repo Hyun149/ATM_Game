@@ -13,6 +13,7 @@ public class UIButtonManager : MonoBehaviour
 
     public void ShowATM()
     {
+        GameManager.Instance.SaveGame();
         atmUI.SetActive(true);
         depositUI.SetActive(false);
         withdrawUI.SetActive(false);
