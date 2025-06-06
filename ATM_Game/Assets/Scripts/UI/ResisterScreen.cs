@@ -40,7 +40,7 @@ public class ResisterScreen : MonoBehaviour
             return;
         }
 
-        GameManager.Instance.UserDataManager.AddnewUser(newUser);
+        GameManager.Instance.UserDataManager.AddNewUser(newUser);
 
         Debug.Log("회원가입 완료!");
     }

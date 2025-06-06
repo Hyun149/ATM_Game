@@ -10,13 +10,18 @@ public class UserDataManager
     public UserDataList UserList { get; private set; } = new UserDataList();
     public UserData CurrentUser { get; private set; }
 
-    public bool IsDuplicateID(string id)
+
+    public void Init()
     {
         LoadUserData();
+    }
+
+    public bool IsDuplicateID(string id)
+    {
         return UserList.users.Any(u => u.userID == id);
     }
 
-    public void AddnewUser(UserData newUser)
+    public void AddNewUser(UserData newUser)
     {
         UserList.users.Add(newUser);
         SaveUserData();
@@ -24,16 +29,24 @@ public class UserDataManager
 
     public void SaveUserData()
     {
-        string Json = JsonUtility.ToJson(UserList, true);
-        File.WriteAllText(SavePath, Json);
+        string json = JsonUtility.ToJson(UserList, true);
+        File.WriteAllText(SavePath, json);
     }
 
     public void LoadUserData()
     {
         if (File.Exists(SavePath))
         {
+            try
+            {
             string json = File.ReadAllText(SavePath);
             UserList = JsonUtility.FromJson<UserDataList>(json);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"유저 데이터 로드 실패: {ex.Message}");
+            }
+
             Debug.Log("유저 데이터 로드 완료");
 
             if (UserList.users.Count > 0)
@@ -67,6 +80,7 @@ public class UserDataManager
         {
             CurrentUser.cash -= amount;
             CurrentUser.balance += amount;
+            SaveUserData();
             return true;
         }
 
@@ -91,15 +105,13 @@ public class UserDataManager
         return false;
     }
 
-    public void SetUserData(UserData data)
+    /*public void SetUserData(UserData data)
     {
         this.CurrentUser = data;
-    }
+    }*/
 
     public bool TryLogin(string id, string pw)
     {
-        LoadUserData();
-
         foreach (var user in UserList.users)
         {
             if (user.userID == id && user.password == pw)
@@ -115,7 +127,6 @@ public class UserDataManager
     private void AddTestUser()
     {
         var testUser = new UserData("GM 현", "0000", "0000", 9999999, 11111111);
-        UserList = new UserDataList();
         UserList.users.Add(testUser);
         CurrentUser = testUser;
         SaveUserData();

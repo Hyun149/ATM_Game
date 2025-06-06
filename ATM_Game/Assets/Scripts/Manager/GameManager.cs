@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         UserDataManager = new UserDataManager();
-        UserDataManager.LoadUserData();
+        UserDataManager.Init();
 
         if (UserDataManager.CurrentUser != null)
         {
