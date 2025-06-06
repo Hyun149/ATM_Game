@@ -14,7 +14,14 @@ public class Character
     public int level;
     public int gold;
 
+    /// <summary>
+    /// 캐릭터의 현재 능력치를 관리하는 객체입니다.
+    /// </summary>
     public CharacterStats Stats { get; private set; }
+
+    /// <summary>
+    /// 캐릭터가 보유한 인벤토리 정보입니다.
+    /// </summary>
     public CharacterInventory Inventory { get; private set; }
 
     /// <summary>
@@ -28,8 +35,8 @@ public class Character
     public Character(UserData user)
     {
         this.characterName = user.userName;
-        this.level = Mathf.Max(1, user.balance / 37145); //최소 1레벨 보장
-        this.gold = user.balance / 34;
+        this.level = Mathf.Max(1, user.balance / 10000); //최소 1레벨 보장
+        this.gold = user.balance / 10;
 
         Inventory = new CharacterInventory();
 

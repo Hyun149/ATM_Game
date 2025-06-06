@@ -11,14 +11,24 @@ using UnityEngine;
 /// </summary>
 public class GameManager : Singleton<GameManager>
 {
-    public GameState CurrentState { get; private set; } = GameState.None; // 현재 게임의 상태를 나타냅니다.
-
-    public IUserDataManager UserDataManager { get; private set; }
-
-    public Character PlayerCharacter { get; private set; }
-
     [Header("초기 아이템들")]
     public List<ItemData> initialItems;
+
+    /// <summary>
+    /// 현재 게임 상태를 나타냅니다. (예: Title, InGame, Pause 등)
+    /// </summary>
+    public GameState CurrentState { get; private set; } = GameState.None;
+
+    /// <summary>
+    /// 유저 데이터 관련 기능을 담당하는 매니저입니다. (의존성 주입 가능)
+    /// </summary>
+    public IUserDataManager UserDataManager { get; private set; }
+
+    /// <summary>
+    /// 현재 플레이어의 캐릭터 정보를 담고 있는 객체입니다.
+    /// </summary>
+    public Character PlayerCharacter { get; private set; }
+
 
     /// <summary>
     /// 게임 매니저의 초기화 작업을 수행합니다.<br/>
