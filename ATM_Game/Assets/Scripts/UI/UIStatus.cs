@@ -16,9 +16,9 @@ public class UIStatus : MonoBehaviour
         if (character != null)
         {
             statusText.text =
-                $"공격력: {character.attack}\n" +
-                $"방어력: {character.defense}\n" +
-                $"체력: {character.hp}";
+                $"공격력: {character.Stats.Attack}\n" +
+                $"방어력: {character.Stats.Defense}\n" +
+                $"체력: {character.Stats.HP}";
 
             Refresh();
         }
@@ -39,7 +39,7 @@ public class UIStatus : MonoBehaviour
             int equipDef = 0;
             int equipHP = 0;
 
-            foreach (var item in character.Inventory)
+            foreach (var item in character.Inventory.Items)
             {
                 if (item.isEquipped)
                 {

@@ -23,7 +23,7 @@ public class UIInventory : MonoBehaviour
         if (character != null)
         {
             goldText.text = $"{character.gold:N0}";
-            RefreshInventoryUI(character.Inventory);
+            RefreshInventoryUI(character.Inventory.Items);
         }
         else
         {
@@ -44,7 +44,6 @@ public class UIInventory : MonoBehaviour
         {
             var slot = Instantiate(slotPrefab, slotParent);
             slot.SetItem(item);
-            slot.RefreshUI();
             slots.Add(slot);
         }
     }

@@ -32,11 +32,11 @@ public class UISlot : MonoBehaviour
 
         if (currentItem.isEquipped)
         {
-            character.UnEquipItem(currentItem);
+            character.UnEquip(currentItem);
         }
         else
         {
-            character.EquipItem(currentItem);
+            character.Equip(currentItem);
         }
 
         RefreshUI();
