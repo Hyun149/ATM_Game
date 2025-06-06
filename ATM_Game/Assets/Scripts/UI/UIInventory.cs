@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -16,14 +16,6 @@ public class UIInventory : MonoBehaviour
 
     private List<UISlot> slots = new List<UISlot>();
 
-    /// <summary>
-    /// 인벤토리 UI 초기화
-    /// </summary>
-    private void Start()
-    {
-        InitInventoryUI();
-    }
-
     private void OnEnable()
     {
         var character = GameManager.Instance.PlayerCharacter;
@@ -31,6 +23,7 @@ public class UIInventory : MonoBehaviour
         if (character != null)
         {
             goldText.text = $"{character.gold:N0}";
+            RefreshInventoryUI(character.Inventory);
         }
         else
         {
@@ -38,18 +31,20 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 임시로 10개의 슬롯 생성하고 아이콘 설정
-    /// </summary>
-    private void InitInventoryUI()
+    private void RefreshInventoryUI(List<Item> inventory)
     {
-        for (int i = 0; i < 10; i++)
+        foreach (Transform child in slotParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        slots.Clear();
+
+        foreach (var item in inventory)
         {
             var slot = Instantiate(slotPrefab, slotParent);
+            slot.SetItem(item.data.icon);
             slots.Add(slot);
-
-            Sprite icon = Resources.Load<Sprite>("New Icons/PowerUp1");
-            slot.SetItem(icon);
         }
     }
 }

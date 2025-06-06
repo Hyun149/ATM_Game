@@ -17,7 +17,7 @@ public class UIStatus : MonoBehaviour
             statusText.text =
                 $"공격력: {character.attack}\n" +
                 $"방어력: {character.defense}\n" +
-                $"체력: {character.health}";
+                $"체력: {character.hp}";
         }
         else
         {

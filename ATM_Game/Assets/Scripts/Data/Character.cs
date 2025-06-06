@@ -13,14 +13,15 @@ public class Character
     public int gold;
     public int attack;
     public int defense;
-    public int health;
+    public int hp;
+
+    public List<Item> Inventory { get; private set; } = new List<Item>();
 
     public Character(UserData user)
     {
         this.characterName = user.userName;
         this.level = Mathf.Max(1, user.balance / 37145); //최소 1레벨 보장
         this.gold = user.balance / 34;
-
         CalculateStats();
     }
 
@@ -31,6 +32,46 @@ public class Character
     {
         this.attack = level * 3;
         this.defense = level * 3;
-        this.health = level * 11;
+        this.hp = level * 11;
+
+        foreach (var item in Inventory)
+        {
+            if (item.isEquipped)
+            {
+                attack += item.data.attackBonus;
+                defense += item.data.defenseBonus;
+                hp += item.data.hpBonus;
+            }
+        }
+    }
+
+    public void AddItem(ItemData itemData)
+    {
+        Inventory.Add(new Item(itemData));
+        RecalculateStats();
+    }
+
+    public void EquipItem(Item item)
+    {
+        if (Inventory.Contains(item))
+        {
+            item.Equip();
+            RecalculateStats();
+        }
+    }
+
+    public void UnEquipItem(Item item)
+    {
+        if (Inventory.Contains(item))
+        {
+            item.UnEquip();
+            RecalculateStats();
+        }
+    }
+
+    private void RecalculateStats()
+    {
+        CalculateStats();
     }
 }
+

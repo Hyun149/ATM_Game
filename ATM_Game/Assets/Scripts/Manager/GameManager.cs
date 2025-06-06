@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class GameManager : Singleton<GameManager>
 
     public Character PlayerCharacter { get; private set; }
 
+    [Header("초기 아이템들")]
+    public List<ItemData> initialItems;
+
     protected override void Awake()
     {
         base.Awake();
@@ -24,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
         if (UserDataManager.CurrentUser != null)
         {
-            PlayerCharacter = new Character(UserDataManager.CurrentUser);
+            SetData(UserDataManager.CurrentUser);
         }
     }
 
@@ -53,6 +57,20 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+    public void SetData(UserData user)
+    {
+        PlayerCharacter = new Character(user);
+
+        foreach (var itemData in initialItems)
+        {
+            PlayerCharacter.AddItem(itemData);
+        }
+
+        if (PlayerCharacter.Inventory.Count > 0)
+        {
+            PlayerCharacter.Inventory[0].Equip();
+        }
+    }
 
     public void QuitGame()
     {
