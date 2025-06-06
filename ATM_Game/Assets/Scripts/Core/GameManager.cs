@@ -20,21 +20,26 @@ public class GameManager : Singleton<GameManager>
     [Header("초기 아이템들")]
     public List<ItemData> initialItems;
 
+    /// <summary>
+    /// 게임 매니저의 초기화 작업을 수행합니다.<br/>
+    /// 싱글톤으로서 중복 방지를 처리하고, 유저 데이터를 불러옵니다.
+    /// </summary>
     protected override void Awake()
     {
         base.Awake();
         UserDataManager = new UserDataManager();
+
         UserDataManager.Init();
 
         if (UserDataManager.CurrentUser != null)
         {
-            SetData(UserDataManager.CurrentUser);
+            SetPlayerCharacter(UserDataManager.CurrentUser);
         }
     }
 
     /// <summary>
-    /// 게임 시작 시 호출되는 Unity 이벤트 함수입니다.<br/>
-    /// 초기 게임 상태를 Title로 설정하여 타이틀 화면 진입 흐름을 시작합니다.
+    /// 게임이 시작될 때 호출되는 Unity 이벤트 함수입니다.<br/>
+    /// 초기 상태를 타이틀 화면으로 전환합니다.
     /// </summary>
     private void Start()
     {
@@ -42,10 +47,10 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// 게임 상태를 새 상태로 전환합니다.<br/>
-    /// 중복 전환을 방지하며, 상태별 로직을 스위치로 구분하여 실행합니다.
+    /// 게임의 상태를 변경합니다.<br/>
+    /// 현재 상태와 같은 경우 무시되며, 상태 전환 시 GameStateHandler를 통해 처리됩니다.
     /// </summary>
-    /// <param name="newState">전환하고자 하는 게임 상태</param>
+    /// <param name="newState">새로 설정할 게임 상태</param>
     public void ChangeState(GameState newState)
     {
         if (CurrentState == newState) return;
@@ -57,16 +62,21 @@ public class GameManager : Singleton<GameManager>
         
     }
 
-    public void SetData(UserData user)
-    {
-        PlayerCharacter = new Character(user);
-    }
-
+    /// <summary>
+    /// 플레이어 캐릭터를 설정합니다.<br/>
+    /// (SetData와 동일한 기능이므로, 추후 통합 가능)
+    /// </summary>
+    /// <param name="user">유저 데이터</param>
     public void SetPlayerCharacter(UserData user)
     {
         PlayerCharacter = new Character(user);
     }
 
+    /// <summary>
+    /// 플레이어 캐릭터를 설정합니다.<br/>
+    /// (SetData와 동일한 기능이므로, 추후 통합 가능)
+    /// </summary>
+    /// <param name="user">유저 데이터</param>
     public void SaveGame()
     {
         if (PlayerCharacter == null || UserDataManager.CurrentUser == null)
@@ -79,6 +89,10 @@ public class GameManager : Singleton<GameManager>
         UserDataManager.SaveUserData();
     }
 
+    /// <summary>
+    /// 게임을 종료합니다.<br/>
+    /// 에디터에서는 실행 모드를 종료하고, 빌드된 게임에서는 실제로 종료합니다.
+    /// </summary>
     public void QuitGame()
     {
         Debug.Log("[GameManager] 게임 종료 요청됨");
