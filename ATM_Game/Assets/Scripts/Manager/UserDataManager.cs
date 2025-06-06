@@ -12,15 +12,20 @@ using System.Collections.Generic;
 /// </summary>
 public class UserDataManager : IUserDataManager
 {
+    public UserDataList UserList { get; private set; }
+    public List<UserData> AllUsers => UserList.users;
+    public UserData CurrentUser { get; private set; }
     public event Action OnUserDataChanged;
 
     private readonly IUserDataStorage storage;
     private readonly CharacterFactory characterFactory;
 
-    public UserDataList UserList { get; private set; }
-    public List<UserData> AllUsers => UserList.users;
-    public UserData CurrentUser { get; private set; }
-
+    /// <summary>
+    /// UserDataManager를 생성합니다.<br/>
+    /// - 저장소와 캐릭터 팩토리를 주입받아 사용합니다.
+    /// </summary>
+    /// <param name="storage">유저 데이터 저장소 구현체</param>
+    /// <param name="factory">캐릭터 팩토리</param>
     public UserDataManager(IUserDataStorage storage, CharacterFactory factory)
     {
         this.storage = storage;
@@ -28,7 +33,8 @@ public class UserDataManager : IUserDataManager
     }
 
     /// <summary>
-    /// UserDataManager를 초기화하며, 저장된 데이터를 불러옵니다.
+    /// UserDataManager를 초기화하며, 저장된 유저 데이터를 불러옵니다.<br/>
+    /// - 저장된 데이터가 없으면 테스트 유저를 자동 추가합니다.
     /// </summary>
     public void Init()
     {
@@ -44,6 +50,11 @@ public class UserDataManager : IUserDataManager
         }
     }
 
+    /// <summary>
+    /// 주어진 ID가 이미 존재하는지 확인합니다.
+    /// </summary>
+    /// <param name="id">검사할 유저 ID</param>
+    /// <returns>중복 여부</returns>
     public bool IsDuplicateID(string id) => UserList.users.Any(u => u.userID == id);
 
     /// <summary>
@@ -64,11 +75,6 @@ public class UserDataManager : IUserDataManager
     }
 
     /// <summary>
-    /// 입금 처리: 현금에서 잔액으로 자금을 이동합니다.
-    /// </summary>
-    /// <param name="amount">입금할 금액</param>
-    /// <returns>입금 성공 여부</returns>
-    /// <summary>
     /// 로그인 시도: ID와 비밀번호가 일치하는 유저를 찾습니다.
     /// </summary>
     /// <param name="id">입력한 ID</param>
@@ -86,6 +92,11 @@ public class UserDataManager : IUserDataManager
         return true;
     }
 
+    /// <summary>
+    /// 입금 처리: 현금에서 잔액으로 자금을 이동합니다.
+    /// </summary>
+    /// <param name="amount">입금할 금액</param>
+    /// <returns>입금 성공 여부</returns>
     public bool TryDeposit(int amount)
     {
         if (CurrentUser == null || amount <= 0 || amount > CurrentUser.cash)
@@ -119,6 +130,10 @@ public class UserDataManager : IUserDataManager
         return true;
     }
 
+    /// <summary>
+    /// 현재 유저 데이터를 저장합니다.<br/>
+    /// - 수동 저장을 원할 때 호출합니다.
+    /// </summary>
     public void SaveUserData()
     {
         storage.Save(UserList);
