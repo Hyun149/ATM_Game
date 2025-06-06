@@ -43,7 +43,8 @@ public class UIInventory : MonoBehaviour
         foreach (var item in inventory)
         {
             var slot = Instantiate(slotPrefab, slotParent);
-            slot.SetItem(item.data.icon);
+            slot.SetItem(item);
+            slot.RefreshUI();
             slots.Add(slot);
         }
     }

@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: "\uCEE4\uB2E4\uB780 \uB2FB"
   icon: {fileID: 21300000, guid: 5ac1f56673bd69f40b2a72c9679ffd1d, type: 3}
   attackBonus: 0
-  defenseBonus: 10
+  defenseBonus: 5
   hpBonus: 0

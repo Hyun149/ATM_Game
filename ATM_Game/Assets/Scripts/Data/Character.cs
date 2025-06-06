@@ -53,11 +53,17 @@ public class Character
 
     public void EquipItem(Item item)
     {
+        if (item.isEquipped)
+        {
+            return;
+        }
+
         if (Inventory.Contains(item))
         {
             item.Equip();
             RecalculateStats();
         }
+
     }
 
     public void UnEquipItem(Item item)

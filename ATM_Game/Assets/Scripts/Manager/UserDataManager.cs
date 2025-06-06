@@ -39,9 +39,9 @@ public class UserDataManager
             if (UserList.users.Count > 0)
             {
 
-                AddTestUser(); // 테스트 계정
+                // AddTestUser(); // 테스트 계정
 
-                // 테스트용 임시 주석: CurrentUser ??= UserList.users[0];
+                CurrentUser ??= UserList.users[0];
             }
             else
             {

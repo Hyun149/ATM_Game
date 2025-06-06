@@ -66,10 +66,10 @@ public class GameManager : Singleton<GameManager>
             PlayerCharacter.AddItem(itemData);
         }
 
-        if (PlayerCharacter.Inventory.Count > 0)
+        /*if (PlayerCharacter.Inventory.Count > 0)
         {
             PlayerCharacter.Inventory[0].Equip();
-        }
+        }*/
     }
 
     public void QuitGame()

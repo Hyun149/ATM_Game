@@ -7,23 +7,46 @@ using UnityEngine.UI;
 public class UISlot : MonoBehaviour
 {
     [SerializeField] private Image iconImage;
+    [SerializeField] private GameObject equipEffect;
+
+    private Item currentItem;
 
     /// <summary>
     /// 슬롯에 아이템 아이콘을 설정합니다.
     /// </summary>
     /// <param name="icon">아이템의 스프라이트 아이콘</param>
-    public void SetItem(Sprite icon)
+    public void SetItem(Item item)
     {
-        iconImage.sprite = icon;
-        iconImage.enabled = icon != null;
+        currentItem = item;
+        iconImage.sprite = item.data.icon;
+        iconImage.enabled = iconImage.sprite != null;
+
+        RefreshUI();
     }
 
-    /// <summary>
-    /// 슬롯을 비웁니다.
-    /// </summary>
+    public void OnClick()
+    {
+        if (currentItem == null) return;
+
+        var character = GameManager.Instance.PlayerCharacter;
+
+        if (currentItem.isEquipped)
+        {
+            character.UnEquipItem(currentItem);
+        }
+        else
+        {
+            character.EquipItem(currentItem);
+        }
+
+        RefreshUI();
+    }
+
     public void RefreshUI()
     {
-        iconImage.sprite = null;
-        iconImage.enabled = false;
+        if (equipEffect != null)
+        {
+            equipEffect.SetActive(currentItem != null && currentItem.isEquipped);
+        }
     }
 }

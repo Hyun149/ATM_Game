@@ -7,6 +7,7 @@ using TMPro;
 public class UIStatus : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI statusText;
+    [SerializeField] private TextMeshProUGUI EquipStatusText;
 
     private void OnEnable()
     {
@@ -18,6 +19,8 @@ public class UIStatus : MonoBehaviour
                 $"공격력: {character.attack}\n" +
                 $"방어력: {character.defense}\n" +
                 $"체력: {character.hp}";
+
+            Refresh();
         }
         else
         {
@@ -26,4 +29,31 @@ public class UIStatus : MonoBehaviour
         }
     }
 
+    public void Refresh()
+    {
+        var character = GameManager.Instance.PlayerCharacter;
+
+        if (character != null)
+        {
+            int equipAtk = 0;
+            int equipDef = 0;
+            int equipHP = 0;
+
+            foreach (var item in character.Inventory)
+            {
+                if (item.isEquipped)
+                {
+                    equipAtk += item.data.attackBonus;
+                    equipDef += item.data.defenseBonus;
+                    equipHP += item.data.hpBonus;
+                }
+            }
+
+            EquipStatusText.text =
+                $"+ {equipAtk} 공격력\n" +
+                $"+ {equipDef} 방어력\n" +
+                $"+ {equipHP}  체력";
+
+        }
+    }
 }
