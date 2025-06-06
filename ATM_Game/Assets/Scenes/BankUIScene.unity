@@ -5271,7 +5271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &418479679
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5670,6 +5670,7 @@ MonoBehaviour:
   inputTargetID: {fileID: 1575064578}
   inputAmount: {fileID: 377308440}
   errorPopup: {fileID: 1946290670}
+  errorText: {fileID: 2085613237}
 --- !u!4 &484794271
 Transform:
   m_ObjectHideFlags: 0
@@ -9421,7 +9422,7 @@ MonoBehaviour:
   userNameText: {fileID: 901255225}
   balanceText: {fileID: 1623500253}
   cashText: {fileID: 1811477943}
-  inputField: {fileID: 362313242}
+  inputField: {fileID: 1575064578}
   popupError: {fileID: 1946290670}
 --- !u!1 &871058078
 GameObject:
@@ -23407,8 +23408,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 900
-  m_fontSizeBase: 900
+  m_fontSize: 150
+  m_fontSizeBase: 150
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
