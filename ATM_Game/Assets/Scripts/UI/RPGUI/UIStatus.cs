@@ -2,13 +2,18 @@ using UnityEngine;
 using TMPro;
 
 /// <summary>
-/// 캐릭터의 능력치를 UI에 표시하는 클래스입니다.
+/// <b>캐릭터의 능력치를 UI에 표시하는 클래스입니다.</b><br/>
+/// - 기본 능력치(공격력, 방어력, 체력)를 표시합니다.<br/>
+/// - 장착 아이템에 의한 추가 능력치도 별도로 계산하여 표시합니다.
 /// </summary>
 public class UIStatus : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private TextMeshProUGUI EquipStatusText;
 
+    /// <summary>
+    /// UI가 활성화될 때 호출되며, 캐릭터의 현재 능력치를 UI에 표시합니다.
+    /// </summary>
     private void OnEnable()
     {
         var character = GameManager.Instance.PlayerCharacter;
@@ -29,6 +34,9 @@ public class UIStatus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 장착된 아이템을 기준으로 추가 능력치를 계산하여 UI에 표시합니다.
+    /// </summary>
     public void Refresh()
     {
         var character = GameManager.Instance.PlayerCharacter;
