@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +6,7 @@ using UnityEngine;
 /// - GameObject가 없으면 자동 생성됩니다.
 /// - 기본적으로 DontDestroyOnLoad가 적용되어 씬 전환 시에도 유지됩니다.
 /// </summary>
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;                     // 싱글톤 인스턴스. 처음 접근 시 자동 생성되거나 기존 인스턴스를 반환합니다.
     private static bool isShuttingDown = false;    // 종료 시점에 싱글톤 접근을 방지하기 위한 플래그입니다.
@@ -56,7 +54,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             instance = this as T;
             DontDestroyOnLoad(gameObject);
         }
-        else if (instance == null)
+        else
         {
             Destroy(gameObject);
         }

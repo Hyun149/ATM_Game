@@ -8,7 +8,7 @@ using UnityEngine;
 /// - 각 풀은 타입에 맞게 제네릭으로 생성되며, string 키로 식별됩니다.
 /// - ObjectPoolManager는 Singleton<ObjectPoolManager>를 상속하여 자동 싱글톤으로 구성됩니다.
 /// </summary>
-public class ObjectPoolManager : Singleton<ObjectPoolManager>
+public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
 {
     /// <summary>
     /// 모든 풀을 저장하는 딕셔너리입니다.

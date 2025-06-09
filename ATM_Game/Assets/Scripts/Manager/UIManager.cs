@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// - 메인 메뉴, 은행, 상태창, 인벤토리 UI를 전환합니다.<br/>
 /// - 각 UI는 필요한 시점에만 활성화되고, 나머지는 숨겨집니다.
 /// </summary>
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Canvas")]
     [SerializeField] private GameObject rpgMainMenuCanvas;

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// UI 및 게임 효과음을 재생하는 효과음 매니저입니다.
 /// </summary>
-public class SFXManager : Singleton<SFXManager>
+public class SFXManager : MonoSingleton<SFXManager>
 {
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip BankButtonClip;

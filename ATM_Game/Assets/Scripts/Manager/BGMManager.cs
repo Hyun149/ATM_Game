@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Canvas 전환에 따라 배경음악을 변경하는 스크립트입니다.
 /// </summary>
-public class BGMManager : Singleton<BGMManager>
+public class BGMManager : MonoSingleton<BGMManager>
 {
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioClip BankClip;

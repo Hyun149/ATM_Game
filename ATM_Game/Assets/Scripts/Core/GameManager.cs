@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +7,7 @@ using UnityEngine;
 /// - 게임 상태 전환(타이틀, 인게임, 일시정지 등)을 관리합니다.<br/>
 /// - UI 및 씬 매니저와의 연결 지점 역할도 수행할 수 있습니다.
 /// </summary>
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoSingleton<GameManager>
 {
     [Header("초기 아이템들")]
     public List<ItemData> initialItems;

@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 /// - <b>TriggerEvent</b>: 특정 이벤트를 트리거하여 등록된 메서드들을 실행합니다.<br/>
 /// - <b>ClearAllEvents</b>: 전체 이벤트 딕셔너리를 초기화합니다.
 /// </summary>
-public class EventManager : Singleton<EventManager>
+public class EventManager : MonoSingleton<EventManager>
 {
     private Dictionary<string, Action> eventDicionary = new Dictionary<string, Action>();  // 이벤트 이름과 연결된 델리게이트 저장소
 
