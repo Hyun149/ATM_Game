@@ -30,9 +30,9 @@ public class UIManager : Singleton<UIManager>
     {
         var user = GameManager.Instance.UserDataManager.CurrentUser;
         GameManager.Instance.SetPlayerCharacter(user);
-
         HideAll();
         rpgMainMenuCanvas.SetActive(true);
+        BGMManager.Instance.PlayRPGBGM();
     }
 
     /// <summary>
@@ -44,6 +44,7 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.SaveGame();
         HideAll();
         bankUICanvas.SetActive(true);
+        BGMManager.Instance.PlayBankBGM();
     }
 
     /// <summary>

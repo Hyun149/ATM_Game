@@ -5648,6 +5648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450930338}
   - component: {fileID: 450930337}
+  - component: {fileID: 450930339}
   m_Layer: 0
   m_Name: BGMPlayer
   m_TagString: Untagged
@@ -5665,7 +5666,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f3cb868151c8747fbbe95f138ce1700e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.346
   m_Pitch: 1
@@ -5766,6 +5767,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &450930339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450930336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdce678846773cf42be3ac82ec2c847c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &484794269
 GameObject:
   m_ObjectHideFlags: 0
@@ -22411,6 +22424,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913089680}
   m_CullTransparentMesh: 1
+--- !u!1 &1928829122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1928829124}
+  - component: {fileID: 1928829123}
+  m_Layer: 0
+  m_Name: BGMManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1928829123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928829122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3577723d9b2a86943ac89a4f2542ed51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSource: {fileID: 450930337}
+  BankClip: {fileID: 8300000, guid: f3cb868151c8747fbbe95f138ce1700e, type: 3}
+  RPGClip: {fileID: 8300000, guid: 761ae5ade5554412fab0cf4a1cf64b22, type: 3}
+--- !u!4 &1928829124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928829122}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1946290670
 GameObject:
   m_ObjectHideFlags: 0
@@ -24339,3 +24399,4 @@ SceneRoots:
   - {fileID: 624370925}
   - {fileID: 906638942}
   - {fileID: 450930338}
+  - {fileID: 1928829124}
