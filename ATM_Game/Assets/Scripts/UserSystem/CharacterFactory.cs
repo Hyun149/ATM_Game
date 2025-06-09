@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// <b>캐릭터 생성을 담당하는 팩토리 클래스입니다.</b><br/>

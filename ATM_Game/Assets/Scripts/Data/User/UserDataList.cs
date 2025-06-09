@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// 전체 유저 정보를 저장하는 리스트 클래스입니다.<br/>

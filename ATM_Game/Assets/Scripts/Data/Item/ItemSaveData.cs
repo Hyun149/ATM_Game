@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /// <summary>
 /// 인벤토리 아이템의 저장용 데이터 클래스입니다.<br/>
 /// - JSON 등으로 저장될 때 필요한 최소한의 정보만 담고 있습니다.<br/>

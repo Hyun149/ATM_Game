@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// 유저 데이터 관련 기능을 정의하는 인터페이스입니다.<br/>
