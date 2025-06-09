@@ -39,6 +39,7 @@ public class RegisterScreen : MonoBehaviour
         {
             Debug.LogWarning("빈 칸이 있습니다.");
             popupError.SetActive(true);
+            SFXManager.Instance.ErrorSound();
             return;
         }
 
@@ -46,6 +47,7 @@ public class RegisterScreen : MonoBehaviour
         {
             Debug.LogWarning("비밀번호가 일치하지 않습니다.");
             popupError.SetActive(true);
+            SFXManager.Instance.ErrorSound();
             return;
         }
 
@@ -54,6 +56,7 @@ public class RegisterScreen : MonoBehaviour
         {
             Debug.LogWarning("이미 존재하는 ID입니다.");
             popupError?.SetActive(true);
+            SFXManager.Instance.ErrorSound();
             return;
         }
 

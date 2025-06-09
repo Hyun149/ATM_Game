@@ -64,7 +64,12 @@ public class PopupBank : MonoBehaviour
 
     private UserData GetUserData() => GameManager.Instance.UserDataManager.CurrentUser;
 
-    private void ShowError() => popupError?.SetActive(true);
+    private void ShowError()
+    {
+        popupError?.SetActive(true);
+        Debug.Log("에러 사운드 실행됨");
+        SFXManager.Instance.ErrorSound();
+    }
     private void HideError() => popupError?.SetActive(false);
     private void CloseError() => HideError();
 
@@ -87,6 +92,7 @@ public class PopupBank : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("입출금 실패 에러!");
             ShowError();
         }
     }
@@ -109,6 +115,7 @@ public class PopupBank : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("입출금 실패!");
             ShowError();
         }
     }

@@ -56,6 +56,7 @@ public class TransferManager : MonoBehaviour
         if (string.IsNullOrEmpty(targetID) || string.IsNullOrEmpty(amountText))
         {
             ShowError("모든 항목을 입력해주세요.");
+            SFXManager.Instance.ErrorSound();
             amount = 0;
             return false;
         }
@@ -63,6 +64,7 @@ public class TransferManager : MonoBehaviour
         if (!int.TryParse(amountText, out amount) || amount <= 0)
         {
             ShowError("유효한 숫자를 입력해주세요.");
+            SFXManager.Instance.ErrorSound();
             return false;
         }
 
@@ -81,6 +83,7 @@ public class TransferManager : MonoBehaviour
         if (receiver == null)
         {
             ShowError("해당 ID의 사용자를 찾을 수 없습니다.");
+            SFXManager.Instance.ErrorSound();
             return false;
         }
 
@@ -98,6 +101,7 @@ public class TransferManager : MonoBehaviour
         if (sender.balance < amount)
         {
             ShowError("잔액이 부족합니다.");
+            SFXManager.Instance.ErrorSound();
             return false;
         }
 
@@ -137,6 +141,7 @@ public class TransferManager : MonoBehaviour
         if (errorPopup != null)
         {
             errorPopup.SetActive(true);
+            SFXManager.Instance.ErrorSound();
         }
     }
 }

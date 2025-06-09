@@ -43,6 +43,7 @@ public class PopupLogin : MonoBehaviour
         {
             Debug.Log("로그인 실패");
             popupError?.SetActive(true);
+            SFXManager.Instance.ErrorSound();
         }
     }
 }
