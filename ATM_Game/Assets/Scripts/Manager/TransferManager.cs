@@ -121,7 +121,6 @@ public class TransferManager : MonoBehaviour
         receiver.balance += amount;
 
         GameManager.Instance.UserDataManager.SaveUserData();
-        Debug.Log($"송금 성공: {receiver.userID}에게 {amount}원 송금!");
     }
 
     /// <summary>

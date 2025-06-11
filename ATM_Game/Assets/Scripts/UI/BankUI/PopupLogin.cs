@@ -33,13 +33,11 @@ public class PopupLogin : MonoBehaviour
 
         if (manager.TryLogin(enteredID, enteredPW))
         {
-            Debug.Log("로그인 성공!");
             popupBank.SetActive(true);
             popupLogin.SetActive(false);
         }
         else
         {
-            Debug.Log("로그인 실패");
             popupError?.SetActive(true);
             SFXManager.Instance.ErrorSound();
         }

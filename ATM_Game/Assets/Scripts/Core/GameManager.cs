@@ -61,10 +61,7 @@ public class GameManager : MonoSingleton<GameManager>
         if (CurrentState == newState) return;
 
         CurrentState = newState;
-        Debug.Log($"[GameManager] 상태 전환됨 -> {newState}");
-
         GameStateHandler.Handle(newState);
-        
     }
 
     /// <summary>
@@ -112,8 +109,6 @@ public class GameManager : MonoSingleton<GameManager>
     /// </summary>
     public void QuitGame()
     {
-        Debug.Log("[GameManager] 게임 종료 요청됨");
-
 # if UNITY_EDITOR
         // Unity 에디터 상에서 실행 중인 경우 에디터 모드 종료
         UnityEditor.EditorApplication.isPlaying = false;

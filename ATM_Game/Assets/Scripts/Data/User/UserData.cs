@@ -44,7 +44,6 @@ public class UserData
         this.inventory.Clear();
         foreach (var item in character.Inventory.Items)
         {
-            Debug.Log($"[저장]: {item.data.name} / 장착: {item.isEquipped}");
             inventory.Add(new ItemSaveData(item.data.name, item.isEquipped));
         }
     }

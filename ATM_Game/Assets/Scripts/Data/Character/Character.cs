@@ -40,12 +40,9 @@ public class Character
 
         foreach (var itemSave in user.inventory)
         {
-            Debug.Log($"[불러오기]: {itemSave.itemid} / 장착: {itemSave.isEquipped}");
-
             var itemData = Resources.Load<ItemData>($"ItemData/{itemSave.itemid}");
             if (itemData != null)
             {
-                Debug.Log($"아이템 로드 성공: {itemData.name}");
                 var item = Inventory.AddItem(itemData);
                 if (itemSave.isEquipped)
                 {

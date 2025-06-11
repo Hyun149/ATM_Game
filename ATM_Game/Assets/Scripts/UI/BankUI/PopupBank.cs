@@ -66,7 +66,6 @@ public class PopupBank : MonoBehaviour
     private void ShowError()
     {
         popupError?.SetActive(true);
-        Debug.Log("에러 사운드 실행됨");
         SFXManager.Instance.ErrorSound();
     }
     private void HideError() => popupError?.SetActive(false);

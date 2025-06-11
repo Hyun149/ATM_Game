@@ -63,8 +63,6 @@ public class RegisterScreen : MonoBehaviour
         UserData newUser = new UserData(name, id, pw, 50000, 50000);
         GameManager.Instance.UserDataManager.AddNewUser(newUser);
 
-        Debug.Log("회원가입 완료!");
-
         popupLogin.SetActive(true);
         registerScreen.SetActive(false);
     }
